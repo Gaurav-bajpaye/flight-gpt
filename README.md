@@ -1,46 +1,91 @@
-# Getting Started with Create React App
+# Flight Data Analyzer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React application for analyzing flight booking data using the Gemini AI API.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Interactive chat interface for querying flight data
+- Dynamic data visualizations based on query type (pie charts, bar charts, line charts, tables)
+- Real-time response handling with custom polling state management
+- Material UI components for a modern user interface
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Setup and Installation
 
-### `npm test`
+1. Clone the repository
+2. Navigate to the project directory:
+   ```
+   cd flight-data-analyzer
+   ```
+3. Install dependencies:
+   ```
+   npm install
+   ```
+4. Start the development server:
+   ```
+   npm start
+   ```
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How It Works
 
-### `npm run build`
+The application loads flight booking data from CSV files located in the public folder:
+- `airlineMapping.csv`: Maps airline IDs to airline names
+- `flightBookings.csv`: Contains detailed flight booking information
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Users can ask questions about the data through the chat interface. The application then:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Sends the query to the Gemini API with context about the flight data
+2. Processes the response to extract text and visualization information
+3. Renders appropriate visualizations based on the query type
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Example Queries
 
-### `npm run eject`
+Try asking questions like:
+- "Which airline has the most flights listed?"
+- "What are the top three most frequented destinations?"
+- "Show me the average flight delay per airline"
+- "Display the number of bookings per month"
+- "Compare business vs economy class bookings"
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Technical Implementation
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **React**: Frontend framework
+- **TypeScript**: Type safety
+- **Material UI**: Component library
+- **Highcharts**: Data visualization
+- **Gemini API**: AI language model for query processing
+- **Custom Hooks**: usePollingState for asynchronous response handling
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Project Structure
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+flight-data-analyzer/
+├── public/
+│   ├── airlineMapping.csv    # Airline ID to name mapping
+│   ├── flightBookings.csv    # Flight booking data
+│   └── ...
+├── src/
+│   ├── components/           # React components
+│   │   ├── ChatInterface.tsx # Chat interface component
+│   │   └── VisualizationRenderer.tsx # Renders different visualization types
+│   ├── hooks/                # Custom React hooks
+│   │   └── usePollingState.ts # Hook for handling async polling
+│   ├── services/             # Service layer
+│   │   └── DataService.ts    # Handles data loading and LLM API calls
+│   ├── types/                # TypeScript interfaces
+│   │   └── index.ts          # Type definitions
+│   ├── App.tsx               # Main application component
+│   └── ...
+└── ...
+```
 
-## Learn More
+## Notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- The Gemini API key is included directly in the code for demonstration purposes.
+- In a production environment, API keys should be stored securely on the server side.
+- The application does not have a backend component - it interacts directly with the Gemini API from the client.
